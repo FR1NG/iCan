@@ -1,14 +1,12 @@
 <script setup>
-    import { useProductStore } from '@/stores/product';
-    useProductStore().test();
+import DefaultLayout from './components/DefaultLayout.vue';
 
 </script>
 
 <template>
     <div>
-        <router-link :to="{name: 'CreateProduct'}">create | </router-link>
-
-        <router-link :to="{name: 'ProductsList'}">list</router-link>
-        <router-view></router-view>
+        <default-layout>
+            <router-view></router-view>
+        </default-layout>
     </div>
 </template>

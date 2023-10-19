@@ -3,6 +3,6 @@
 
 <template>
     <div>
-        hello from home
+        welcome home
     </div>
 </template>
