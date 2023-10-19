@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Product;
 
-class category extends Model
+class Category extends Model
 {
     use HasFactory;
-    public function products() {
+    public function products()
+    {
         return $this->belongsToMany(Product::class, 'product_category', 'category_id', 'product_id');
     }
 }
