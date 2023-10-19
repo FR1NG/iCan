@@ -6,6 +6,9 @@
 
 <template>
     <div>
-        first vue component
+        <router-link :to="{name: 'CreateProduct'}">create | </router-link>
+
+        <router-link :to="{name: 'ProductsList'}">list</router-link>
+        <router-view></router-view>
     </div>
 </template>
