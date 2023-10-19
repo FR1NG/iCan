@@ -9,6 +9,7 @@ class CategoryRepository implements CategoryInterface
 
     public function create(array $data)
     {
+        return response()->json(['message' => 'category has been created successfully'], 201);
     }
 
     public function getAll()
