@@ -3,13 +3,15 @@
 namespace App\Repositories;
 
 use App\Interfaces\CategoryInterface;
+use App\Models\Category;
 
 class CategoryRepository implements CategoryInterface
 {
 
     public function create(array $data)
     {
-        return response()->json(['message' => 'category has been created successfully'], 201);
+        Category::create($data);
+        return response()->json(['message' => 'category has been created successfully', 'data' => $data], 201);
     }
 
     public function getAll()

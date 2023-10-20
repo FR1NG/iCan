@@ -16,4 +16,22 @@ class CategoryTest extends TestCase
         $response = $this->postJson('api/category', ['name' => 'testCategoryOne']);
         $response->assertStatus(201);
     }
+
+    public function test_category_creation_duplicated_name(): void
+    {
+        $response = $this->postJson('api/category', ['name' => 'testCategoryOne']);
+        $response->assertStatus(422);
+    }
+
+    public function test_category_creation_with_parent(): void
+    {
+        $response = $this->postJson('api/category', ['name' => 'newCategory', 'parent_id' => 1]);
+        $response->assertStatus(201);
+    }
+
+    public function test_category_creation_unexisted_parent(): void
+    {
+        $response = $this->postJson('api/category', ['name' => 'newCategory', 'parent_id' => 100000000]);
+        $response->assertStatus(422);
+    }
 }

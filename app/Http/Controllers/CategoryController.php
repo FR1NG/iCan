@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Interfaces\CategoryInterface;
 
 class CategoryController extends Controller
@@ -10,8 +11,9 @@ class CategoryController extends Controller
     {
     }
 
-    public function create()
+    public function create(CategoryRequest $request)
     {
-        return $this->category->create([]);
+        $data = $request->all();
+        return $this->category->create($data);
     }
 }
