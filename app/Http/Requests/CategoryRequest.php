@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\Rule;
 
 class CategoryRequest extends FormRequest
 {
@@ -24,6 +25,12 @@ class CategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->isMethod('PUT')) {
+            return [
+                'name' => [Rule::unique('categories', 'name')->ignore($this->category), 'max:50'],
+                'parent_id' =>  ['exists:categories,id']
+            ];
+        }
         return [
             'name' => ['required', 'unique:categories', 'max:50'],
             'parent_id' =>  ['exists:categories,id']
