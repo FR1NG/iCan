@@ -9,7 +9,15 @@ use App\Models\Category;
 class Product extends Model
 {
     use HasFactory;
-    public function categoris()
+
+    protected $fillable = [
+        'name',
+        'price',
+        'description',
+        'image'
+    ];
+
+    public function categories()
     {
         return $this->belongsToMany(Category::class, 'product_category');
     }
