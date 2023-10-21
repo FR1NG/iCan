@@ -25,11 +25,9 @@ const closeDialog = () => {
             </h3>
             <slot></slot>
             <div class="modal-action">
-                <form method="dialog">
-                    <slot name="actions">
-                            <button class="btn" @click="closeDialog">Close</button>
-                    </slot>
-                </form>
+            <slot name="actions">
+                    <button class="btn" @click="closeDialog">Close</button>
+            </slot>
             </div>
         </div>
     </dialog>
