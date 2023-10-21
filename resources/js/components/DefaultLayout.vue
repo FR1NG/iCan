@@ -1,4 +1,5 @@
 <script setup>
+import Notification from './custom/Notification.vue';
 
 const routes = [
     {name: 'CreateProduct', text: 'Create Product'},
@@ -57,6 +58,7 @@ const routes = [
   </header>
 
   <div class="relative isolate px-6 pt-14 lg:px-8">
+    <Notification/>
     <slot></slot>
   </div>
 </div>
