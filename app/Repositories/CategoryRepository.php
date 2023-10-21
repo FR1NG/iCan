@@ -16,7 +16,7 @@ class CategoryRepository implements CategoryInterface
 
     public function getAll()
     {
-        $categories = Category::with(['parent'])->get();
+        $categories = Category::with(['parent'])->withCount(['products'])->get();
         return response()->json(['data' => $categories]);
     }
 
