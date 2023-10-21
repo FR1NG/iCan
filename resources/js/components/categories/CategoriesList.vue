@@ -1,17 +1,24 @@
 <script setup>
     import CreateCategory from './CreateCategory.vue';
+    import { useCategoryStore } from '@/stores/category';
+    import { storeToRefs } from 'pinia';
 
+    const categoryStore = useCategoryStore();
+    const { categories } = storeToRefs(categoryStore);
     const headers = [
         'Name',
-        'Parent',
+        'Parent Category',
         'Number of Products',
         'Actions'
     ]
+
+    // fetching data from the backend
+    categoryStore.getCategories();
 </script>
 
 <template>
 <div class="overflow-x-auto">
-<create-category></create-category>
+<create-category :categories="categoryStore.itemsForSelect"></create-category>
   <table class="table">
     <!-- head -->
     <thead>
@@ -25,14 +32,14 @@
       </tr>
     </thead>
     <tbody>
-      <!-- row 2 -->
-      <tr>
+      <!-- records -->
+      <tr v-for="category in categories" :key="category.id">
         <th>
-            id
+            {{ category.id }}
         </th>
-        <td> one </td>
-        <td> two </td>
-        <td>tree</td>
+        <td> {{ category.name }} </td>
+        <td> {{ category?.parent?.name || 'None' }} </td>
+        <td> {{ category.products_count }} </td>
         <th>
           <button class="btn btn-ghost btn-xs">edit</button>
           <button class="btn btn-ghost btn-xs">delete</button>
