@@ -22,20 +22,22 @@ class CategoryRepository implements CategoryInterface
 
     public function update(Category $category, array $data)
     {
-        if($data["name"])
+        if ($data["name"]) {
             $category->name = $data["name"];
+        }
         $result = $category->update();
-        if($result)
+        if ($result) {
             return response()->json(['message' => 'Category has been updated successfully']);
+        }
         return response()->json(['message' => 'Category has not been updated'], 500);
     }
 
     public function delete(Category $category)
     {
         $result = $category->delete();
-        if($result)
+        if ($result) {
             return response()->json(['message' => 'Category has been deleted successfully']);
+        }
         return response()->json(['message' => 'Category has not been deleted'], 500);
-
     }
 }
