@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 
-if(! function_exists('FailedValidationHandler')) {
+if (!function_exists('FailedValidationHandler')) {
     function FailedValidationHandler(Validator $validator)
     {
             $response = new JsonResponse([
@@ -14,6 +14,5 @@ if(! function_exists('FailedValidationHandler')) {
                 'errors' => $validator->errors(),
             ], 422);
             throw new HttpResponseException($response);
-
     }
 }
