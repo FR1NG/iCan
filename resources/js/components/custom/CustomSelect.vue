@@ -19,11 +19,14 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
+const handleChange = (e) => {
+    emit('update:modelValue', e.target.value);
+}
 </script>
 
 <template>
     <form-control :error-message="errorMessage" :width="width" :label="label">
-        <select class="select select-bordered">
+        <select @change="handleChange" :value="modelValue" class="select select-bordered">
             <option disabled selected>{{ placeholder }}</option>
             <option v-for="item in items" :value="item.value">{{ item.text }}</option>
         </select>
