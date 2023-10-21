@@ -1,5 +1,10 @@
 <script setup>
 
+const routes = [
+    {name: 'CreateProduct', text: 'Create Product'},
+    {name: 'ProductsList', text: 'Products List'},
+    {name: 'CategoriesList', text: 'Categories List'},
+]
 </script>
 
 <template>
@@ -17,11 +22,8 @@
         </button>
       </div>
       <div class="hidden lg:flex lg:gap-x-12">
-        <router-link :to="{name: 'CreateProduct'}">
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Create Product</a>
-        </router-link>
-        <router-link :to="{name: 'ProductsList'}">
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Products List</a>
+        <router-link v-for="route in routes" :key="route.name" :to="{name: route.name}">
+            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">{{ route.text}}</a>
         </router-link>
       </div>
     </nav>
