@@ -43,7 +43,7 @@ class ProductController extends Controller
 
     private function uploadImage(ProductRequest $request): string
     {
-        if($request->file('image')){
+        if ($request->file('image')) {
             $file= $request->file('image');
             $filename= date('YmdHi').$file->getClientOriginalName();
             $file-> move(public_path('Images/Products'), $filename);
