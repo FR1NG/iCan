@@ -10,19 +10,34 @@ class CategoryRepository implements CategoryInterface
 
     public function create(array $data)
     {
-        Category::create($data);
-        return response()->json(['message' => 'category has been created successfully', 'data' => $data], 201);
+        $category = Category::create($data);
+        return response()->json(['message' => 'category has been created successfully', 'data' => $category], 201);
     }
 
     public function getAll()
     {
+        $categories = Category::with(['parent'])->get();
+        return response()->json(['data' => $categories]);
     }
 
-    public function update($id, array $data)
+    public function update(Category $category, array $data)
     {
+        if ($data["name"]) {
+            $category->name = $data["name"];
+        }
+        $result = $category->update();
+        if ($result) {
+            return response()->json(['message' => 'Category has been updated successfully']);
+        }
+        return response()->json(['message' => 'Category has not been updated'], 500);
     }
 
-    public function delete($id)
+    public function delete(Category $category)
     {
+        $result = $category->delete();
+        if ($result) {
+            return response()->json(['message' => 'Category has been deleted successfully']);
+        }
+        return response()->json(['message' => 'Category has not been deleted'], 500);
     }
 }

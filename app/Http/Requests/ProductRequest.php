@@ -3,11 +3,12 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Contracts\Validation\Validator;
+
 use function App\Helpers\FailedValidationHandler;
 
-class CategoryRequest extends FormRequest
+class ProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,15 +25,17 @@ class CategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        $name_rule =  ['required', 'unique:products', 'max:50', 'min:3'];
+        $price_rule = ['required', 'numeric'];
         if ($this->isMethod('PUT')) {
-            return [
-                'name' => [Rule::unique('categories', 'name')->ignore($this->category), 'max:50'],
-                'parent_id' =>  ['exists:categories,id']
-            ];
+                $name_rule = [ Rule::unique('products', 'name')->ignore($this->product), 'max:50', 'min:3'];
+                unset($price_rule[0]);
         }
         return [
-            'name' => ['required', 'unique:categories', 'max:50'],
-            'parent_id' =>  ['exists:categories,id']
+            'name' => $name_rule,
+            'price' => $price_rule,
+            'description' => ['max:255', 'min:3'],
+            'categories.*' => ['exists:categories,id']
         ];
     }
 
