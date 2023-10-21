@@ -4,9 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Rule;
+use function App\Helpers\FailedValidationHandler;
 
 class CategoryRequest extends FormRequest
 {
@@ -39,10 +38,6 @@ class CategoryRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        $response = new JsonResponse([
-            'message' => 'Validation failed',
-            'errors' => $validator->errors(),
-        ], 422);
-        throw new HttpResponseException($response);
+        FailedValidationHandler($validator);
     }
 }
