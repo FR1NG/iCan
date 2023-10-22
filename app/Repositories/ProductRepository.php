@@ -15,7 +15,7 @@ class ProductRepository implements ProductInterface
         if (isset($data['categories'])) {
             $product->categories()->attach($data['categories']);
         }
-        return response()->json(['message' => 'Product has been created successfully', 'data' => $product], 201);
+        return $product;
     }
 
     public function getAll(Request $request)
@@ -34,24 +34,18 @@ class ProductRepository implements ProductInterface
             $query->whereBetween('price', [$priceFrom, $priceTo]);
         }
         $products = $query->get();
-        return response()->json(['data' => $products]);
+        return $products;
     }
 
     public function update(Product $product, array $data)
     {
         $result = $product->update($data);
-        if ($result) {
-            return response()->json(['message' => 'Product has been updated successfully']);
-        }
-        return response()->json(['message' => 'Product has not been updated'], 500);
+        return $result;
     }
 
     public function delete(Product $product)
     {
         $result = $product->delete();
-        if ($result) {
-            return response()->json(['message' => 'Product has been deleted successfully']);
-        }
-        return response()->json(['message' => 'Product has not been deleted'], 500);
+        return $result;
     }
 }

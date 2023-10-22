@@ -18,12 +18,20 @@ class ProductController extends Controller
         $filename = $this->uploadImage($request);
         $data = $request->all();
         $data['image'] = $filename;
-        return $this->product->create($data);
+        $product = $this->product->create($data);
+        return response()->json(
+            [
+                'message' => 'Product has been created successfully',
+                'data' => $product
+            ],
+            201
+        );
     }
 
     public function index(Request $request)
     {
-        return $this->product->getAll($request);
+        $products = $this->product->getAll($request);
+        return response()->json(['data' => $products]);
     }
 
     public function update(Product $product, ProductRequest $request)
@@ -34,20 +42,28 @@ class ProductController extends Controller
         if (isset($data['image'])) {
             unset($data['image']);
         }
-        return $this->product->update($product, $data);
+        $result = $this->product->update($product, $data);
+        if ($result) {
+            return response()->json(['message' => 'Product has been updated successfully']);
+        }
+        return response()->json(['message' => 'Product has not been updated'], 500);
     }
 
     public function delete(Product $product)
     {
-        return $this->product->delete($product);
+        $result = $this->product->delete($product);
+        if ($result) {
+            return response()->json(['message' => 'Product has been deleted successfully']);
+        }
+        return response()->json(['message' => 'Product has not been deleted'], 500);
     }
 
     private function uploadImage(ProductRequest $request): string
     {
         if ($request->file('image')) {
-            $file= $request->file('image');
-            $filename= date('YmdHi').$file->getClientOriginalName();
-            $file-> move(public_path('Images/Products'), $filename);
+            $file = $request->file('image');
+            $filename = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('Images/Products'), $filename);
             return $filename;
         }
         return 'default.png';
