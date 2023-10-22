@@ -4,7 +4,7 @@ import FormControl from './FormControl.vue';
 const props = defineProps({
     modelValue: '',
     width: {
-        default: 'md'
+        default: 'full'
     },
     color: {
         default: 'primary'
