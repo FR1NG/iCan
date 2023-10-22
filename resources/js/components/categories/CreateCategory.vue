@@ -5,7 +5,7 @@ import CustomInput from '../custom/CustomInput.vue';
 import CustomSelect from '../custom/CustomSelect.vue'
 import CustomBtn from '../custom/CustomBtn.vue';
 import { useCategoryStore } from '@/stores/category'
-import { resetObject } from '@/composables/helpers'
+import { resetObject, assignErrors } from '@/composables/helpers'
 
 defineProps(['categories']);
 
@@ -29,8 +29,7 @@ const handleSubmit = async () => {
         hideModal();
         resetObject(form);
     }).catch((error) => {
-        errors.name = error.errors.name?.at(0) || '';
-        errors.parent_id = error.errors.parent_id?.at(0) || '';
+        assignErrors(error.errors, errors);
         loading.value = false;
     });
 }
@@ -48,8 +47,8 @@ const errors = reactive({
 </script>
 
 <template>
-    <div>
-        <CustomBtn color="info" @click="showModal">Create</CustomBtn>
+    <div class="flex justify-end m-4">
+        <CustomBtn color="info" @click="showModal">Create Category</CustomBtn>
         <CustomDailog v-model="modal" title="Create Category">
             <CustomInput :error-message="errors.name" v-model="form.name" width="full" color="" label="Category name"
                 placeholder="place holder" />
