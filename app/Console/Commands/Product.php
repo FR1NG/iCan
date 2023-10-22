@@ -9,7 +9,7 @@ use App\Repositories\ProductRepository;
 use Exception;
 use Illuminate\Console\Command;
 
-class product extends Command
+class Product extends Command
 {
     /**
      * The name and signature of the console command.
@@ -34,14 +34,14 @@ class product extends Command
         $names = [];
         $selectedCategories = [];
         $names[0] = 'Select this when you done choosing categories';
-        foreach($categories as $value) {
+        foreach ($categories as $value) {
             $names[$value->id] = $value->name;
         }
         $name = $this->ask('enter product name: ');
         $price = $this->ask('enter product price: ');
         $description = $this->ask('enter product description: ');
-        do  {
-            $category_name = $this->choice( 'Choose Category: ', $names);
+        do {
+            $category_name = $this->choice('Choose Category: ', $names);
             $category_id = array_search($category_name, $names);
             if ($category_id != 0 && !in_array($category_id, $selectedCategories)) {
                 array_push($selectedCategories, $category_id);
