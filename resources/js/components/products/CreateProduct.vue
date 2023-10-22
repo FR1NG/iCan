@@ -24,41 +24,47 @@ const hideModal = () => {
 }
 
 const handleSubmit = async () => {
-    console.log(form)
     appendInputs();
     loading.value = true;
     resetObject(errors);
     productStore.createProduct(formData).then(() => {
     loading.value = false;
     resetObject(form);
+    formCategories.value = [];
     formData = new FormData();
     hideModal();
     }).catch((error) => {
-        assignErrors(error.errors, errors);
         loading.value = false;
+        assignErrors(error.errors, errors);
         });
-
 }
 
 const appendInputs = () => {
-    for(const el of Object.keys(form)) {
+    for (const el of Object.keys(form)) {
         if(form[el])
             formData.append(el, form[el]);
     }
+    formCategories.value?.at(0).forEach((val, key) => {
+        formData.append(`categories[${key}]`, val);
+    })
 }
 
 const form = reactive({
     name: '',
     price: null,
     discription: '',
-    image: null
+    image: null,
 });
+
+const formCategories = ref([])
 
 const errors = reactive({
     name: '',
     price: '',
     discription: '',
-    image: ''
+    image: '',
+    description: '',
+    categories: '',
 })
 
 const handleInput = (e) => {
@@ -82,13 +88,20 @@ const handleInput = (e) => {
             <CustomInput
                 :error-message="errors.price"
                 v-model="form.price" width="full"
-                color="" label="Price"
+                color="info" label="Price"
                 type="number"
                 placeholder="product price" />
 
+            <CustomInput
+                :error-message="errors.description"
+                v-model="form.description" width="full"
+                color="info" label="description"
+                type="text"
+                placeholder="product description" />
+
             <CustomMultiSelect
                 :error-message="errors.categories"
-                v-model="form.categories"
+                v-model="formCategories"
                 :items="categories"
                 label="Product Categories"
                 placeholder="Select Categories"

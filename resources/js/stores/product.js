@@ -29,7 +29,7 @@ export const useProductStore = defineStore('product', {
                     resolve(response.data.data);
                     this.getProducts();
                 } catch(error) {
-                    console.log(error);
+                    console.log(error.response.data.message);
                     reject(error?.response?.data);
                 }
             })
