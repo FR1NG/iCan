@@ -2,7 +2,6 @@
 import Notification from './custom/Notification.vue';
 
 const routes = [
-    {name: 'CreateProduct', text: 'Create Product'},
     {name: 'ProductsList', text: 'Products List'},
     {name: 'CategoriesList', text: 'Categories List'},
 ]
