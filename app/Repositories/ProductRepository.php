@@ -23,9 +23,8 @@ class ProductRepository implements ProductInterface
 
         $query = Product::query()->with(['categories']);
         $filter = $request->query('category');
-        if($filter && strlen($filter) > 0)
-        {
-            $query->whereHas('categories', function($q) use ($filter) {
+        if ($filter && strlen($filter) > 0) {
+            $query->whereHas('categories', function ($q) use ($filter) {
                 $q->where('name', '=', $filter);
             });
         }
