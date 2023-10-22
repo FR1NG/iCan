@@ -41,4 +41,9 @@ class CategoryRepository implements CategoryInterface
         }
         return response()->json(['message' => 'Category has not been deleted'], 500);
     }
+
+    public function getForConsole() {
+        $categories = Category::query()->select(['id', 'name'])->get();
+        return $categories;
+    }
 }
