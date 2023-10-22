@@ -12,7 +12,7 @@ export const useProductStore = defineStore('product', {
         async getProducts(filter) {
             return new Promise(async (resolve) => {
                 try {
-                    const response = await axios.get(`/product?category=${filter || ''}`);
+                    const response = await axios.get(`/product?${filter || ''}`);
                     this.products = response.data.data;
                     resolve(response.data.data);
                 } catch(error) {

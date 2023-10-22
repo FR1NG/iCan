@@ -21,12 +21,17 @@ class ProductRepository implements ProductInterface
     public function getAll(Request $request)
     {
 
+        $categoryFilter = $request->query('category');
+        $priceFrom = $request->query('priceFrom') ?? 0;
+        $priceTo = $request->query('priceTo') ?? PHP_FLOAT_MAX;
         $query = Product::query()->with(['categories']);
-        $filter = $request->query('category');
-        if ($filter && strlen($filter) > 0) {
-            $query->whereHas('categories', function ($q) use ($filter) {
-                $q->where('name', '=', $filter);
+        if ($categoryFilter && strlen($categoryFilter) > 0) {
+            $query->whereHas('categories', function ($q) use ($categoryFilter) {
+                $q->where('name', '=', $categoryFilter);
             });
+        }
+        if ($priceFrom <= $priceTo) {
+            $query->whereBetween('price', [$priceFrom, $priceTo]);
         }
         $products = $query->get();
         return response()->json(['data' => $products]);
