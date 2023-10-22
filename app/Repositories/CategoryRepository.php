@@ -11,14 +11,13 @@ class CategoryRepository implements CategoryInterface
 
     public function create(array $data)
     {
-        $category = Category::create($data);
-        return response()->json(['message' => 'category has been created successfully', 'data' => $category], 201);
+        return Category::create($data);
     }
 
     public function getAll(Request $request)
     {
         $categories = Category::with(['parent'])->withCount(['products'])->get();
-        return response()->json(['data' => $categories]);
+        return $categories;
     }
 
     public function update(Category $category, array $data)
@@ -27,18 +26,18 @@ class CategoryRepository implements CategoryInterface
             $category->name = $data["name"];
         }
         $result = $category->update();
-        if ($result) {
-            return response()->json(['message' => 'Category has been updated successfully']);
-        }
-        return response()->json(['message' => 'Category has not been updated'], 500);
+        return $result;
     }
 
     public function delete(Category $category)
     {
         $result = $category->delete();
-        if ($result) {
-            return response()->json(['message' => 'Category has been deleted successfully']);
-        }
-        return response()->json(['message' => 'Category has not been deleted'], 500);
+        return $result;
+    }
+
+    public function getForConsole()
+    {
+        $categories = Category::query()->select(['id', 'name'])->get();
+        return $categories;
     }
 }
