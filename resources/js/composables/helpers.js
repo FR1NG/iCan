@@ -14,3 +14,9 @@ export function resetObject(object) {
       object[key] = null;
   }
 }
+
+export function assignErrors(requestErrors, errorsObject) {
+    for(const key of Object.keys(requestErrors)) {
+        errorsObject[key] = requestErrors[key].at(0);
+    }
+}
