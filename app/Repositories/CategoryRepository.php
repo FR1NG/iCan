@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\CategoryInterface;
 use App\Models\Category;
+use Illuminate\Http\Request;
 
 class CategoryRepository implements CategoryInterface
 {
@@ -14,7 +15,7 @@ class CategoryRepository implements CategoryInterface
         return response()->json(['message' => 'category has been created successfully', 'data' => $category], 201);
     }
 
-    public function getAll()
+    public function getAll(Request $request)
     {
         $categories = Category::with(['parent'])->withCount(['products'])->get();
         return response()->json(['data' => $categories]);

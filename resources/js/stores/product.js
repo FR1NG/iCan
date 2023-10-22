@@ -9,15 +9,13 @@ export const useProductStore = defineStore('product', {
 
     },
     actions: {
-        async getProducts() {
+        async getProducts(filter) {
             return new Promise(async (resolve) => {
                 try {
-                    const response = await axios.get('/product');
+                    const response = await axios.get(`/product?category=${filter || ''}`);
                     this.products = response.data.data;
-                    console.log(this.products)
                     resolve(response.data.data);
                 } catch(error) {
-                    console.log(error);
                 }
             })
         },
@@ -25,11 +23,9 @@ export const useProductStore = defineStore('product', {
             return new Promise(async (resolve, reject) => {
                 try {
                     const response = await axios.post('/product', form);
-                    console.log(response.data);
                     resolve(response.data.data);
                     this.getProducts();
                 } catch(error) {
-                    console.log(error.response.data.message);
                     reject(error?.response?.data);
                 }
             })

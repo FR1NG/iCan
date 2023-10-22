@@ -22,10 +22,8 @@ export const useCategoryStore = defineStore('category', {
                 try {
                     const response = await axios.get('/category');
                     this.categories = response.data.data;
-                    console.log(this.categories)
                     resolve(response.data.data);
                 } catch(error) {
-                    console.log(error);
                 }
             })
         },
@@ -37,11 +35,9 @@ export const useCategoryStore = defineStore('category', {
                     const response = await axios.post('/category', {
                         ...data
                     });
-                    console.log(response.data);
                     resolve(response.data.data);
                     this.getCategories();
                 } catch(error) {
-                    console.log(error);
                     reject(error?.response?.data);
                 }
             })

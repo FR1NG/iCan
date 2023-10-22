@@ -15,7 +15,6 @@
     const handleClick = () => {
         emit('click');
     }
-    console.log(props.disabled)
 
 </script>
 
