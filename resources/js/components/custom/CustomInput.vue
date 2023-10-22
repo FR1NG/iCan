@@ -6,6 +6,9 @@ const props = defineProps({
     width: {
         default: 'md'
     },
+    type: {
+        default: 'text'
+    },
     color: {
         default: 'primary'
     },
@@ -23,7 +26,7 @@ const emit = defineEmits(['update:modelValue']);
         <input
             :value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
-            type="text"
+            :type="type"
             :placeholder="placeholder"
             :class="`input input-bordered w-full input-${color}`"
         />
