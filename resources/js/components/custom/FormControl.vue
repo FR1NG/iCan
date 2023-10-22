@@ -3,7 +3,7 @@ import { watch, ref } from 'vue';
 
 const props = defineProps({
     width: {
-        default: 'md'
+        default: 'full'
     },
     label: '',
     errorMessage: ''

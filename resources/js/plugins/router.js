@@ -8,18 +8,8 @@ const routes = [
     },
     {
         path: '/products',
-        children: [
-            {
-                path: 'create',
-                name: 'CreateProduct',
-                component: () => import('@/components/products/CreateProduct.vue')
-            },
-            {
-                path: 'list',
-                name: 'ProductsList',
-                component: () => import('@/components/products/ProductsList.vue')
-            }
-        ]
+        name: 'ProductsList',
+        component: () => import('@/components/products/ProductsList.vue')
     },
     {
         path: '/categories',
