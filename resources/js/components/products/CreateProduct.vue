@@ -44,7 +44,7 @@ const appendInputs = () => {
         if(form[el])
             formData.append(el, form[el]);
     }
-    formCategories.value?.at(0).forEach((val, key) => {
+    formCategories.value.at(0)?.forEach((val, key) => {
         formData.append(`categories[${key}]`, val);
     })
 }
