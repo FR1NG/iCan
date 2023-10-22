@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\ProductInterface;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductRepository implements ProductInterface
 {
@@ -17,9 +18,17 @@ class ProductRepository implements ProductInterface
         return response()->json(['message' => 'Product has been created successfully', 'data' => $product], 201);
     }
 
-    public function getAll()
+    public function getAll(Request $request)
     {
-        $products = Product::with(['categories'])->get();
+
+        $query = Product::query()->with(['categories']);
+        $filter = $request->query('category');
+        if ($filter && strlen($filter) > 0) {
+            $query->whereHas('categories', function ($q) use ($filter) {
+                $q->where('name', '=', $filter);
+            });
+        }
+        $products = $query->get();
         return response()->json(['data' => $products]);
     }
 

@@ -8,6 +8,6 @@ content: [
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 }
 

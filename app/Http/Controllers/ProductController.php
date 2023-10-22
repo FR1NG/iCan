@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Interfaces\ProductInterface;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -20,9 +21,9 @@ class ProductController extends Controller
         return $this->product->create($data);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->product->getAll();
+        return $this->product->getAll($request);
     }
 
     public function update(Product $product, ProductRequest $request)

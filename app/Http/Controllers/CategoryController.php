@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CategoryRequest;
 use App\Interfaces\CategoryInterface;
 use App\Models\Category;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -18,9 +19,9 @@ class CategoryController extends Controller
         return $this->category->create($data);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->category->getAll();
+        return $this->category->getAll($request);
     }
 
     public function update(Category $category, CategoryRequest $request)
