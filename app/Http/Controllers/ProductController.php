@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Interfaces\ProductInterface;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -13,7 +14,7 @@ class ProductController extends Controller
     {
     }
 
-    public function create(ProductRequest $request)
+    public function create(ProductRequest $request): JsonResponse
     {
         $filename = $this->uploadImage($request);
         $data = $request->all();
@@ -28,13 +29,13 @@ class ProductController extends Controller
         );
     }
 
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $products = $this->product->getAll($request);
         return response()->json(['data' => $products]);
     }
 
-    public function update(Product $product, ProductRequest $request)
+    public function update(Product $product, ProductRequest $request): JsonResponse
     {
         // image update to be handled lather
         $data = $request->all();
@@ -49,7 +50,7 @@ class ProductController extends Controller
         return response()->json(['message' => 'Product has not been updated'], 500);
     }
 
-    public function delete(Product $product)
+    public function delete(Product $product): JsonResponse
     {
         $result = $this->product->delete($product);
         if ($result) {

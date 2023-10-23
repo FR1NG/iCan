@@ -4,12 +4,13 @@ namespace App\Repositories;
 
 use App\Interfaces\ProductInterface;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class ProductRepository implements ProductInterface
 {
 
-    public function create(array $data)
+    public function create(array $data): Model
     {
         $product = Product::create($data);
         if (isset($data['categories'])) {
@@ -37,13 +38,13 @@ class ProductRepository implements ProductInterface
         return $products;
     }
 
-    public function update(Product $product, array $data)
+    public function update(Product $product, array $data): bool
     {
         $result = $product->update($data);
         return $result;
     }
 
-    public function delete(Product $product)
+    public function delete(Product $product): bool
     {
         $result = $product->delete();
         return $result;
