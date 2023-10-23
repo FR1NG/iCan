@@ -13,20 +13,23 @@ the unit tests and psr stadnards are checked on github action on each time a pul
 - [Contributing](#contributing)
 - [License](#license)
 
-# Requirement {#requirement}
+# Requirement 
 - Docker
 - docker-compose
 - Composer
 - php >=8.1.0
+- npm
 
-# Installation {#installation}
+# Installation 
 #### 1. Clone the Repository:
 ```bash
     git clone https://github.com/FR1NG/iCan.git
 ```
 #### 2. Install dependencies:
 ```bash
-cd iCan && composer insatall
+cd iCan
+composer insatall
+npm install
 ```
 #### 3. Configure Environment Variables:
 Copy the .env.example file to .env and configure the necessary environment variables for production, such as database settings and any other project-specific settings.
@@ -64,11 +67,11 @@ to check psr standars run:
 ./vendor/bin/phpcs --standard=PSR2 app
 ```
 
-# Features {#features}
+# Features 
 - Ability to create a product (from web and cli)
 - A listing products with ability to sort by price, or/and filter by a category (from web)
 
-# Usage {#usage}
+# Usage 
 ##### 1. web:
 - for the web part `sail` serve the applicatoin by default on port 80.
 - please make sure port 80 and 3306 are not in use on your machine.
@@ -83,12 +86,12 @@ to creaate a product from the CLI run this command:
 
 
 
-# Contributing {#contributing}
+# Contributing 
 - Respect of software engineering principles : DRY, KISS, YAGNI, SOLID.
 - Code readability and coding style (PSR).
 - Clean commit history in git making code review easy, push progressively instead of pushing the whole project in a single commit.
 - Quality of documentation (The readme should be short and concise, like open source projects readme).
 
 
-# License {#license}
+# License 
     This project is licensed under the terms of the MIT License.
